@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+get_filename_component(PASSPORT_ROOT "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
+set(PASSPORT_BOARD "${PASSPORT_ROOT}/shared/boards/ai-passport")
+set(EXTRA_COMPONENT_DIRS "${PASSPORT_BOARD}/components")
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+idf_build_set_property(BOOTLOADER_EXTRA_COMPONENT_DIRS "${CMAKE_CURRENT_LIST_DIR}/../../shared/boards/ai-passport/bootloader_components/" APPEND)
+project(FoloToy-AI-Passport)

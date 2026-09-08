@@ -1,0 +1,1 @@
+../../../shared/boards/ai-passport/tools/verify_firmware.py

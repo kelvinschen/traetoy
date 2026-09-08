@@ -1,0 +1,1 @@
+../../../shared/boards/ai-passport/components/passport_ble/companion_ble.h

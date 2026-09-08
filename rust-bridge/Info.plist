@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>cn.traetoy.passport-bridge</string>
+<key>CFBundleName</key><string>Codex Passport</string>
+<key>CFBundleDisplayName</key><string>Codex Passport</string>
+<key>NSBluetoothAlwaysUsageDescription</key><string>Connect to your Codex Passport to display task status and completion notifications.</string>
+</dict></plist>
