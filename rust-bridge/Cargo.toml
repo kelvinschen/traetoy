@@ -15,7 +15,7 @@ hex = "0.4"
 chrono = "0.4"
 ctrlc = { version = "3.4", features = ["termination"] }
 libc = "0.2"
-aes-gcm = "0.10"
+aes-gcm = "0.11"
 hmac = "0.12"
 
 [build-dependencies]
