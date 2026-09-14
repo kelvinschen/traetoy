@@ -91,17 +91,20 @@ impl Device {
         };
         // A missing candidate must not interrupt working BLE on every retry.
         std::fs::metadata(&path).context("USB endpoint unavailable")?;
-        if self.ble.take().is_some() {
-            self.invalidate_identity();
-            crate::log("BLE disconnected for USB takeover");
-        }
         // Native USB Serial/JTAG interprets DTR/RTS transitions as reset
         // commands. Preserve them so USB takeover cannot reboot the device
         // and destroy device state or unread alerts.
+        // Merely opening the endpoint sends no protocol traffic, so keep an
+        // existing BLE session until this succeeds. A visible-but-unopenable
+        // serial endpoint must not make the pet go offline every retry.
         let port = serialport::new(&path, 115200)
             .timeout(Duration::from_millis(150))
             .preserve_dtr_on_open()
             .open()?;
+        if self.ble.take().is_some() {
+            self.invalidate_identity();
+            crate::log("BLE disconnected for USB takeover");
+        }
         self.port = Some(port);
         self.invalidate_identity();
         crate::log(&format!("USB connected {path}"));
@@ -153,7 +156,7 @@ impl Device {
                 return Ok(());
             }
             if Instant::now() >= self.usb_retry_at {
-                // USB takes priority; usb_connect releases BLE before opening it.
+                // USB takes priority only after its serial endpoint opens.
                 self.usb_retry_at = Instant::now() + Duration::from_secs(3);
                 if self.usb_connect().is_ok() {
                     self.invalidate_identity();
@@ -377,5 +380,25 @@ mod tests {
         d.recover();
         assert_eq!(until, d.fallback_until);
         assert!(until > Instant::now());
+    }
+    #[test]
+    fn failed_usb_open_keeps_existing_ble_session() {
+        let path = std::env::temp_dir().join(format!(
+            "passport-unopenable-usb-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        std::fs::create_dir(&path).unwrap();
+        let mut d = Device::new(Some(path.to_string_lossy().into_owned()), Mode::Auto, None);
+        d.ble = Some(Ble::test_session());
+        let result = d.usb_connect();
+        let kept_ble = d.ble.is_some();
+        drop(d);
+        std::fs::remove_dir(&path).unwrap();
+        assert!(result.is_err());
+        assert!(kept_ble);
     }
 }

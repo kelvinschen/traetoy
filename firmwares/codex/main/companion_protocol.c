@@ -22,7 +22,7 @@ bool companion_parse(const char *line, companion_state_t *out) {
     if (count != 14 || strcmp(f[0], "CDX1")) return false;
     long v[10];
     const long lo[] = {1,-1,0,-1,0,0,0,0,0};
-    const long hi[] = {INT_MAX,100,1000000,100,1000000,999,999999,2,1};
+    const long hi[] = {INT_MAX,100,1000000,100,1000000,999,999999,COMPANION_ALERT_KIND_MAX,1};
     for (int i=0;i<9;i++) if (!number(f[i+1],lo[i],hi[i],&v[i])) return false;
     if (strlen(f[10]) > 48 || strlen(f[11]) > 16 || strlen(f[12]) > 16 || strcmp(f[13],"END")) return false;
     companion_state_t s = {.seq=(uint32_t)v[0], .remaining={(int)v[1],(int)v[3]},

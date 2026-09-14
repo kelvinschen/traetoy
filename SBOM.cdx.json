@@ -1,0 +1,2170 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "aead",
+      "purl": "pkg:cargo/aead@0.5.2",
+      "type": "library",
+      "version": "0.5.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "aes-gcm",
+      "purl": "pkg:cargo/aes-gcm@0.10.3",
+      "type": "library",
+      "version": "0.10.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "aes",
+      "purl": "pkg:cargo/aes@0.8.4",
+      "type": "library",
+      "version": "0.8.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "ahash",
+      "purl": "pkg:cargo/ahash@0.8.12",
+      "type": "library",
+      "version": "0.8.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "android_system_properties",
+      "purl": "pkg:cargo/android_system_properties@0.1.6",
+      "type": "library",
+      "version": "0.1.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "anyhow",
+      "purl": "pkg:cargo/anyhow@1.0.104",
+      "type": "library",
+      "version": "1.0.104"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "autocfg",
+      "purl": "pkg:cargo/autocfg@1.5.1",
+      "type": "library",
+      "version": "1.5.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "bitflags",
+      "purl": "pkg:cargo/bitflags@1.3.2",
+      "type": "library",
+      "version": "1.3.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "bitflags",
+      "purl": "pkg:cargo/bitflags@2.13.1",
+      "type": "library",
+      "version": "2.13.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "block-buffer",
+      "purl": "pkg:cargo/block-buffer@0.10.4",
+      "type": "library",
+      "version": "0.10.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "block2",
+      "purl": "pkg:cargo/block2@0.6.2",
+      "type": "library",
+      "version": "0.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "bumpalo",
+      "purl": "pkg:cargo/bumpalo@3.20.3",
+      "type": "library",
+      "version": "3.20.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "bytes",
+      "purl": "pkg:cargo/bytes@1.12.1",
+      "type": "library",
+      "version": "1.12.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "cc",
+      "purl": "pkg:cargo/cc@1.4.5",
+      "type": "library",
+      "version": "1.4.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "cfg-if",
+      "purl": "pkg:cargo/cfg-if@1.0.4",
+      "type": "library",
+      "version": "1.0.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "cfg_aliases",
+      "purl": "pkg:cargo/cfg_aliases@0.2.2",
+      "type": "library",
+      "version": "0.2.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "chrono",
+      "purl": "pkg:cargo/chrono@0.4.45",
+      "type": "library",
+      "version": "0.4.45"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "cipher",
+      "purl": "pkg:cargo/cipher@0.4.4",
+      "type": "library",
+      "version": "0.4.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "core-foundation-sys",
+      "purl": "pkg:cargo/core-foundation-sys@0.8.7",
+      "type": "library",
+      "version": "0.8.7"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "core-foundation",
+      "purl": "pkg:cargo/core-foundation@0.10.1",
+      "type": "library",
+      "version": "0.10.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "cpufeatures",
+      "purl": "pkg:cargo/cpufeatures@0.2.17",
+      "type": "library",
+      "version": "0.2.17"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "crypto-common",
+      "purl": "pkg:cargo/crypto-common@0.1.7",
+      "type": "library",
+      "version": "0.1.7"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "ctr",
+      "purl": "pkg:cargo/ctr@0.9.2",
+      "type": "library",
+      "version": "0.9.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "ctrlc",
+      "purl": "pkg:cargo/ctrlc@3.5.2",
+      "type": "library",
+      "version": "3.5.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "data-encoding",
+      "purl": "pkg:cargo/data-encoding@2.11.1",
+      "type": "library",
+      "version": "2.11.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "digest",
+      "purl": "pkg:cargo/digest@0.10.7",
+      "type": "library",
+      "version": "0.10.7"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "dispatch2",
+      "purl": "pkg:cargo/dispatch2@0.3.1",
+      "type": "library",
+      "version": "0.3.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "fallible-iterator",
+      "purl": "pkg:cargo/fallible-iterator@0.3.0",
+      "type": "library",
+      "version": "0.3.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "fallible-streaming-iterator",
+      "purl": "pkg:cargo/fallible-streaming-iterator@0.1.9",
+      "type": "library",
+      "version": "0.1.9"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "find-msvc-tools",
+      "purl": "pkg:cargo/find-msvc-tools@0.1.12",
+      "type": "library",
+      "version": "0.1.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "futures-core",
+      "purl": "pkg:cargo/futures-core@0.3.34",
+      "type": "library",
+      "version": "0.3.34"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "futures-task",
+      "purl": "pkg:cargo/futures-task@0.3.34",
+      "type": "library",
+      "version": "0.3.34"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "futures-util",
+      "purl": "pkg:cargo/futures-util@0.3.34",
+      "type": "library",
+      "version": "0.3.34"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "generic-array",
+      "purl": "pkg:cargo/generic-array@0.14.7",
+      "type": "library",
+      "version": "0.14.7"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "getrandom",
+      "purl": "pkg:cargo/getrandom@0.2.17",
+      "type": "library",
+      "version": "0.2.17"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "getrandom",
+      "purl": "pkg:cargo/getrandom@0.3.4",
+      "type": "library",
+      "version": "0.3.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "ghash",
+      "purl": "pkg:cargo/ghash@0.5.1",
+      "type": "library",
+      "version": "0.5.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "hashbrown",
+      "purl": "pkg:cargo/hashbrown@0.14.5",
+      "type": "library",
+      "version": "0.14.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "hashlink",
+      "purl": "pkg:cargo/hashlink@0.9.1",
+      "type": "library",
+      "version": "0.9.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "hex",
+      "purl": "pkg:cargo/hex@0.4.3",
+      "type": "library",
+      "version": "0.4.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "hmac",
+      "purl": "pkg:cargo/hmac@0.12.1",
+      "type": "library",
+      "version": "0.12.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "http",
+      "purl": "pkg:cargo/http@1.5.0",
+      "type": "library",
+      "version": "1.5.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "httparse",
+      "purl": "pkg:cargo/httparse@1.10.1",
+      "type": "library",
+      "version": "1.10.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "iana-time-zone-haiku",
+      "purl": "pkg:cargo/iana-time-zone-haiku@0.1.2",
+      "type": "library",
+      "version": "0.1.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "iana-time-zone",
+      "purl": "pkg:cargo/iana-time-zone@0.1.65",
+      "type": "library",
+      "version": "0.1.65"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "inout",
+      "purl": "pkg:cargo/inout@0.1.4",
+      "type": "library",
+      "version": "0.1.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "io-kit-sys",
+      "purl": "pkg:cargo/io-kit-sys@0.4.1",
+      "type": "library",
+      "version": "0.4.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "itoa",
+      "purl": "pkg:cargo/itoa@1.0.18",
+      "type": "library",
+      "version": "1.0.18"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "js-sys",
+      "purl": "pkg:cargo/js-sys@0.3.105",
+      "type": "library",
+      "version": "0.3.105"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "libc",
+      "purl": "pkg:cargo/libc@0.2.189",
+      "type": "library",
+      "version": "0.2.189"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "libsqlite3-sys",
+      "purl": "pkg:cargo/libsqlite3-sys@0.30.1",
+      "type": "library",
+      "version": "0.30.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "log",
+      "purl": "pkg:cargo/log@0.4.34",
+      "type": "library",
+      "version": "0.4.34"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "mach2",
+      "purl": "pkg:cargo/mach2@0.4.3",
+      "type": "library",
+      "version": "0.4.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "memchr",
+      "purl": "pkg:cargo/memchr@2.8.3",
+      "type": "library",
+      "version": "2.8.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "nix",
+      "purl": "pkg:cargo/nix@0.26.4",
+      "type": "library",
+      "version": "0.26.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "nix",
+      "purl": "pkg:cargo/nix@0.31.3",
+      "type": "library",
+      "version": "0.31.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "num-traits",
+      "purl": "pkg:cargo/num-traits@0.2.19",
+      "type": "library",
+      "version": "0.2.19"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "objc2-encode",
+      "purl": "pkg:cargo/objc2-encode@4.1.0",
+      "type": "library",
+      "version": "4.1.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "objc2",
+      "purl": "pkg:cargo/objc2@0.6.4",
+      "type": "library",
+      "version": "0.6.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "once_cell",
+      "purl": "pkg:cargo/once_cell@1.21.4",
+      "type": "library",
+      "version": "1.21.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "opaque-debug",
+      "purl": "pkg:cargo/opaque-debug@0.3.1",
+      "type": "library",
+      "version": "0.3.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "pin-project-lite",
+      "purl": "pkg:cargo/pin-project-lite@0.2.17",
+      "type": "library",
+      "version": "0.2.17"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "pkg-config",
+      "purl": "pkg:cargo/pkg-config@0.3.34",
+      "type": "library",
+      "version": "0.3.34"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "polyval",
+      "purl": "pkg:cargo/polyval@0.6.2",
+      "type": "library",
+      "version": "0.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "ppv-lite86",
+      "purl": "pkg:cargo/ppv-lite86@0.2.21",
+      "type": "library",
+      "version": "0.2.21"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "proc-macro2",
+      "purl": "pkg:cargo/proc-macro2@1.0.107",
+      "type": "library",
+      "version": "1.0.107"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "quote",
+      "purl": "pkg:cargo/quote@1.0.47",
+      "type": "library",
+      "version": "1.0.47"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "r-efi",
+      "purl": "pkg:cargo/r-efi@5.3.0",
+      "type": "library",
+      "version": "5.3.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rand",
+      "purl": "pkg:cargo/rand@0.9.5",
+      "type": "library",
+      "version": "0.9.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rand_chacha",
+      "purl": "pkg:cargo/rand_chacha@0.9.0",
+      "type": "library",
+      "version": "0.9.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rand_core",
+      "purl": "pkg:cargo/rand_core@0.6.4",
+      "type": "library",
+      "version": "0.6.4"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rand_core",
+      "purl": "pkg:cargo/rand_core@0.9.5",
+      "type": "library",
+      "version": "0.9.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rusqlite",
+      "purl": "pkg:cargo/rusqlite@0.32.1",
+      "type": "library",
+      "version": "0.32.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "rustversion",
+      "purl": "pkg:cargo/rustversion@1.0.23",
+      "type": "library",
+      "version": "1.0.23"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "scopeguard",
+      "purl": "pkg:cargo/scopeguard@1.2.0",
+      "type": "library",
+      "version": "1.2.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "serde",
+      "purl": "pkg:cargo/serde@1.0.229",
+      "type": "library",
+      "version": "1.0.229"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "serde_core",
+      "purl": "pkg:cargo/serde_core@1.0.229",
+      "type": "library",
+      "version": "1.0.229"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "serde_derive",
+      "purl": "pkg:cargo/serde_derive@1.0.229",
+      "type": "library",
+      "version": "1.0.229"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "serde_json",
+      "purl": "pkg:cargo/serde_json@1.0.151",
+      "type": "library",
+      "version": "1.0.151"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "serialport",
+      "purl": "pkg:cargo/serialport@4.10.0",
+      "type": "library",
+      "version": "4.10.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "sha1",
+      "purl": "pkg:cargo/sha1@0.10.7",
+      "type": "library",
+      "version": "0.10.7"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "sha2",
+      "purl": "pkg:cargo/sha2@0.10.9",
+      "type": "library",
+      "version": "0.10.9"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "shlex",
+      "purl": "pkg:cargo/shlex@2.0.1",
+      "type": "library",
+      "version": "2.0.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "slab",
+      "purl": "pkg:cargo/slab@0.4.12",
+      "type": "library",
+      "version": "0.4.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "smallvec",
+      "purl": "pkg:cargo/smallvec@1.16.0",
+      "type": "library",
+      "version": "1.16.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "subtle",
+      "purl": "pkg:cargo/subtle@2.6.1",
+      "type": "library",
+      "version": "2.6.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "syn",
+      "purl": "pkg:cargo/syn@2.0.119",
+      "type": "library",
+      "version": "2.0.119"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "syn",
+      "purl": "pkg:cargo/syn@3.0.5",
+      "type": "library",
+      "version": "3.0.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "thiserror-impl",
+      "purl": "pkg:cargo/thiserror-impl@2.0.20",
+      "type": "library",
+      "version": "2.0.20"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "thiserror",
+      "purl": "pkg:cargo/thiserror@2.0.20",
+      "type": "library",
+      "version": "2.0.20"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "tungstenite",
+      "purl": "pkg:cargo/tungstenite@0.26.2",
+      "type": "library",
+      "version": "0.26.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "typenum",
+      "purl": "pkg:cargo/typenum@1.20.1",
+      "type": "library",
+      "version": "1.20.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "unescaper",
+      "purl": "pkg:cargo/unescaper@0.1.10",
+      "type": "library",
+      "version": "0.1.10"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "unicode-ident",
+      "purl": "pkg:cargo/unicode-ident@1.0.24",
+      "type": "library",
+      "version": "1.0.24"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "universal-hash",
+      "purl": "pkg:cargo/universal-hash@0.5.1",
+      "type": "library",
+      "version": "0.5.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "utf-8",
+      "purl": "pkg:cargo/utf-8@0.7.6",
+      "type": "library",
+      "version": "0.7.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "vcpkg",
+      "purl": "pkg:cargo/vcpkg@0.2.15",
+      "type": "library",
+      "version": "0.2.15"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "version_check",
+      "purl": "pkg:cargo/version_check@0.9.5",
+      "type": "library",
+      "version": "0.9.5"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasi",
+      "purl": "pkg:cargo/wasi@0.11.1%2Bwasi-snapshot-preview1",
+      "type": "library",
+      "version": "0.11.1+wasi-snapshot-preview1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasip2",
+      "purl": "pkg:cargo/wasip2@1.0.4%2Bwasi-0.2.12",
+      "type": "library",
+      "version": "1.0.4+wasi-0.2.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasm-bindgen-macro-support",
+      "purl": "pkg:cargo/wasm-bindgen-macro-support@0.2.128",
+      "type": "library",
+      "version": "0.2.128"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasm-bindgen-macro",
+      "purl": "pkg:cargo/wasm-bindgen-macro@0.2.128",
+      "type": "library",
+      "version": "0.2.128"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasm-bindgen-shared",
+      "purl": "pkg:cargo/wasm-bindgen-shared@0.2.128",
+      "type": "library",
+      "version": "0.2.128"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wasm-bindgen",
+      "purl": "pkg:cargo/wasm-bindgen@0.2.128",
+      "type": "library",
+      "version": "0.2.128"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-core",
+      "purl": "pkg:cargo/windows-core@0.62.2",
+      "type": "library",
+      "version": "0.62.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-implement",
+      "purl": "pkg:cargo/windows-implement@0.60.2",
+      "type": "library",
+      "version": "0.60.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-interface",
+      "purl": "pkg:cargo/windows-interface@0.59.3",
+      "type": "library",
+      "version": "0.59.3"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-link",
+      "purl": "pkg:cargo/windows-link@0.2.1",
+      "type": "library",
+      "version": "0.2.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-result",
+      "purl": "pkg:cargo/windows-result@0.4.1",
+      "type": "library",
+      "version": "0.4.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-strings",
+      "purl": "pkg:cargo/windows-strings@0.5.1",
+      "type": "library",
+      "version": "0.5.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-sys",
+      "purl": "pkg:cargo/windows-sys@0.52.0",
+      "type": "library",
+      "version": "0.52.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-sys",
+      "purl": "pkg:cargo/windows-sys@0.61.2",
+      "type": "library",
+      "version": "0.61.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows-targets",
+      "purl": "pkg:cargo/windows-targets@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_aarch64_gnullvm",
+      "purl": "pkg:cargo/windows_aarch64_gnullvm@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_aarch64_msvc",
+      "purl": "pkg:cargo/windows_aarch64_msvc@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_i686_gnu",
+      "purl": "pkg:cargo/windows_i686_gnu@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_i686_gnullvm",
+      "purl": "pkg:cargo/windows_i686_gnullvm@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_i686_msvc",
+      "purl": "pkg:cargo/windows_i686_msvc@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_x86_64_gnu",
+      "purl": "pkg:cargo/windows_x86_64_gnu@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_x86_64_gnullvm",
+      "purl": "pkg:cargo/windows_x86_64_gnullvm@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "windows_x86_64_msvc",
+      "purl": "pkg:cargo/windows_x86_64_msvc@0.52.6",
+      "type": "library",
+      "version": "0.52.6"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "wit-bindgen",
+      "purl": "pkg:cargo/wit-bindgen@0.57.1",
+      "type": "library",
+      "version": "0.57.1"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "zerocopy-derive",
+      "purl": "pkg:cargo/zerocopy-derive@0.8.56",
+      "type": "library",
+      "version": "0.8.56"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "zerocopy",
+      "purl": "pkg:cargo/zerocopy@0.8.56",
+      "type": "library",
+      "version": "0.8.56"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ],
+      "name": "zmij",
+      "purl": "pkg:cargo/zmij@1.0.23",
+      "type": "library",
+      "version": "1.0.23"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://github.com/jeremy-prt/bloub"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "Bloub",
+      "purl": "pkg:generic/Bloub@b4bb3c1b5f93c7b87a2e8d620f667c4093d97749",
+      "type": "library",
+      "version": "b4bb3c1b5f93c7b87a2e8d620f667c4093d97749"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://github.com/FoloToy/ai-passport"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "FoloToy AI Passport board and firmware baseline",
+      "purl": "pkg:generic/FoloToy%20AI%20Passport%20board%20and%20firmware%20baseline@042a5d59da54cc717bdfd08cc99131bc50526341",
+      "type": "library",
+      "version": "042a5d59da54cc717bdfd08cc99131bc50526341"
+    },
+    {
+      "licenses": [
+        {
+          "license": {
+            "name": "ISC"
+          }
+        }
+      ],
+      "name": "Lucide",
+      "purl": "pkg:generic/Lucide@0.468.0",
+      "type": "library",
+      "version": "0.468.0"
+    },
+    {
+      "licenses": [
+        {
+          "license": {
+            "name": "OFL-1.1"
+          }
+        }
+      ],
+      "name": "Montserrat",
+      "purl": "pkg:generic/Montserrat@1.0",
+      "type": "library",
+      "version": "1.0"
+    },
+    {
+      "licenses": [
+        {
+          "license": {
+            "name": "OFL-1.1"
+          }
+        }
+      ],
+      "name": "Noto Sans CJK",
+      "purl": "pkg:generic/Noto%20Sans%20CJK@1.0",
+      "type": "library",
+      "version": "1.0"
+    },
+    {
+      "name": "espressif/button",
+      "purl": "pkg:generic/espressif/button@4.2.0",
+      "type": "library",
+      "version": "4.2.0"
+    },
+    {
+      "name": "espressif/cmake_utilities",
+      "purl": "pkg:generic/espressif/cmake_utilities@1.1.1",
+      "type": "library",
+      "version": "1.1.1"
+    },
+    {
+      "name": "espressif/esp_codec_dev",
+      "purl": "pkg:generic/espressif/esp_codec_dev@1.6.2",
+      "type": "library",
+      "version": "1.6.2"
+    },
+    {
+      "name": "espressif/esp_lvgl_port",
+      "purl": "pkg:generic/espressif/esp_lvgl_port@2.9.0",
+      "type": "library",
+      "version": "2.9.0"
+    },
+    {
+      "name": "idf",
+      "purl": "pkg:generic/idf@5.5.3",
+      "type": "library",
+      "version": "5.5.3"
+    },
+    {
+      "name": "lvgl/lvgl",
+      "purl": "pkg:generic/lvgl/lvgl@9.5.0",
+      "type": "library",
+      "version": "9.5.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://github.com/richgel999/miniz"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "name": "miniz",
+      "purl": "pkg:generic/miniz@77d0dce8627735138c51770d1799a1ef48f2117d",
+      "type": "library",
+      "version": "77d0dce8627735138c51770d1799a1ef48f2117d"
+    },
+    {
+      "name": "passport-bridge",
+      "purl": "pkg:generic/passport-bridge@0.4.0",
+      "type": "library",
+      "version": "0.4.0"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/aix-ppc64/-/aix-ppc64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/aix-ppc64",
+      "purl": "pkg:npm/%40esbuild/aix-ppc64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/android-arm64/-/android-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/android-arm64",
+      "purl": "pkg:npm/%40esbuild/android-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/android-arm/-/android-arm-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/android-arm",
+      "purl": "pkg:npm/%40esbuild/android-arm@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/android-x64/-/android-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/android-x64",
+      "purl": "pkg:npm/%40esbuild/android-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/darwin-arm64/-/darwin-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/darwin-arm64",
+      "purl": "pkg:npm/%40esbuild/darwin-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/darwin-x64/-/darwin-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/darwin-x64",
+      "purl": "pkg:npm/%40esbuild/darwin-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/freebsd-arm64",
+      "purl": "pkg:npm/%40esbuild/freebsd-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/freebsd-x64/-/freebsd-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/freebsd-x64",
+      "purl": "pkg:npm/%40esbuild/freebsd-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-arm64/-/linux-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-arm64",
+      "purl": "pkg:npm/%40esbuild/linux-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-arm/-/linux-arm-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-arm",
+      "purl": "pkg:npm/%40esbuild/linux-arm@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-ia32/-/linux-ia32-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-ia32",
+      "purl": "pkg:npm/%40esbuild/linux-ia32@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-loong64/-/linux-loong64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-loong64",
+      "purl": "pkg:npm/%40esbuild/linux-loong64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-mips64el/-/linux-mips64el-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-mips64el",
+      "purl": "pkg:npm/%40esbuild/linux-mips64el@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-ppc64/-/linux-ppc64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-ppc64",
+      "purl": "pkg:npm/%40esbuild/linux-ppc64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-riscv64/-/linux-riscv64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-riscv64",
+      "purl": "pkg:npm/%40esbuild/linux-riscv64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-s390x/-/linux-s390x-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-s390x",
+      "purl": "pkg:npm/%40esbuild/linux-s390x@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/linux-x64/-/linux-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/linux-x64",
+      "purl": "pkg:npm/%40esbuild/linux-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/netbsd-arm64",
+      "purl": "pkg:npm/%40esbuild/netbsd-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/netbsd-x64/-/netbsd-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/netbsd-x64",
+      "purl": "pkg:npm/%40esbuild/netbsd-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/openbsd-arm64",
+      "purl": "pkg:npm/%40esbuild/openbsd-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/openbsd-x64/-/openbsd-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/openbsd-x64",
+      "purl": "pkg:npm/%40esbuild/openbsd-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/openharmony-arm64",
+      "purl": "pkg:npm/%40esbuild/openharmony-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/sunos-x64/-/sunos-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/sunos-x64",
+      "purl": "pkg:npm/%40esbuild/sunos-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/win32-arm64/-/win32-arm64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/win32-arm64",
+      "purl": "pkg:npm/%40esbuild/win32-arm64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/win32-ia32/-/win32-ia32-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/win32-ia32",
+      "purl": "pkg:npm/%40esbuild/win32-ia32@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@esbuild/win32-x64/-/win32-x64-0.25.12.tgz"
+        }
+      ],
+      "name": "@esbuild/win32-x64",
+      "purl": "pkg:npm/%40esbuild/win32-x64@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-android-arm-eabi/-/resvg-js-android-arm-eabi-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-android-arm-eabi",
+      "purl": "pkg:npm/%40resvg/resvg-js-android-arm-eabi@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-android-arm64/-/resvg-js-android-arm64-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-android-arm64",
+      "purl": "pkg:npm/%40resvg/resvg-js-android-arm64@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-darwin-arm64/-/resvg-js-darwin-arm64-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-darwin-arm64",
+      "purl": "pkg:npm/%40resvg/resvg-js-darwin-arm64@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-darwin-x64/-/resvg-js-darwin-x64-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-darwin-x64",
+      "purl": "pkg:npm/%40resvg/resvg-js-darwin-x64@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-linux-arm-gnueabihf/-/resvg-js-linux-arm-gnueabihf-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-linux-arm-gnueabihf",
+      "purl": "pkg:npm/%40resvg/resvg-js-linux-arm-gnueabihf@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-linux-arm64-gnu/-/resvg-js-linux-arm64-gnu-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-linux-arm64-gnu",
+      "purl": "pkg:npm/%40resvg/resvg-js-linux-arm64-gnu@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-linux-arm64-musl/-/resvg-js-linux-arm64-musl-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-linux-arm64-musl",
+      "purl": "pkg:npm/%40resvg/resvg-js-linux-arm64-musl@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-linux-x64-gnu/-/resvg-js-linux-x64-gnu-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-linux-x64-gnu",
+      "purl": "pkg:npm/%40resvg/resvg-js-linux-x64-gnu@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-linux-x64-musl/-/resvg-js-linux-x64-musl-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-linux-x64-musl",
+      "purl": "pkg:npm/%40resvg/resvg-js-linux-x64-musl@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-win32-arm64-msvc/-/resvg-js-win32-arm64-msvc-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-win32-arm64-msvc",
+      "purl": "pkg:npm/%40resvg/resvg-js-win32-arm64-msvc@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-win32-ia32-msvc/-/resvg-js-win32-ia32-msvc-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-win32-ia32-msvc",
+      "purl": "pkg:npm/%40resvg/resvg-js-win32-ia32-msvc@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js-win32-x64-msvc/-/resvg-js-win32-x64-msvc-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js-win32-x64-msvc",
+      "purl": "pkg:npm/%40resvg/resvg-js-win32-x64-msvc@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/@resvg/resvg-js/-/resvg-js-2.6.2.tgz"
+        }
+      ],
+      "name": "@resvg/resvg-js",
+      "purl": "pkg:npm/%40resvg/resvg-js@2.6.2",
+      "type": "library",
+      "version": "2.6.2"
+    },
+    {
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://bnpm.byted.org/esbuild/-/esbuild-0.25.12.tgz"
+        }
+      ],
+      "name": "esbuild",
+      "purl": "pkg:npm/esbuild@0.25.12",
+      "type": "library",
+      "version": "0.25.12"
+    },
+    {
+      "name": "esptool",
+      "purl": "pkg:pypi/esptool@5.4.0",
+      "type": "library",
+      "version": "5.4.0"
+    },
+    {
+      "name": "h11",
+      "purl": "pkg:pypi/h11@0.16.0",
+      "type": "library",
+      "version": "0.16.0"
+    },
+    {
+      "name": "pillow",
+      "purl": "pkg:pypi/pillow@12.3.0",
+      "type": "library",
+      "version": "12.3.0"
+    },
+    {
+      "name": "pyserial",
+      "purl": "pkg:pypi/pyserial@3.5",
+      "type": "library",
+      "version": "3.5"
+    },
+    {
+      "name": "wsproto",
+      "purl": "pkg:pypi/wsproto@1.3.2",
+      "type": "library",
+      "version": "1.3.2"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "traetoy",
+      "type": "application",
+      "version": "source"
+    }
+  },
+  "serialNumber": "urn:uuid:5ae575b7-059b-56b4-845f-7dae4bb83102",
+  "specVersion": "1.5",
+  "version": 1
+}

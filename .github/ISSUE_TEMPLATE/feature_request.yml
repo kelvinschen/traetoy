@@ -1,0 +1,41 @@
+name: Feature request / 功能建议
+description: Suggest an improvement to Traetoy.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, private device links, or personal data.
+        请勿提交凭证、私密设备链接或个人数据。
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case / 问题或使用场景
+      description: Explain the limitation and intended user outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior / 期望行为
+      description: Describe visible behavior and acceptance criteria.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area / 涉及范围
+      options:
+        - Firmware / 固件
+        - macOS bridge / macOS 桥接
+        - Documentation or tooling / 文档或工具
+        - Hardware compatibility / 硬件兼容性
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check / 安全确认
+      options:
+        - label: I removed credentials, private device links, and personal data. / 我已移除凭证、私密设备链接和个人数据。
+          required: true

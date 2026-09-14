@@ -20,7 +20,7 @@ The menu separates service state, USB/BLE connection, firmware compatibility and
 Stopping does not change login startup. Opening the app again starts the service. Closing a terminal has no effect. A menu-app crash stops its backend after a ten-second ownership grace period. Repeated backend crashes stop automatic recovery after three retries per minute. A stop that exceeds 40 seconds displays an error and offers explicit forced termination.
 
 ```bash
-cd /Users/bytedance/KProjects/traetoy
+cd /path/to/traetoy
 ./scripts/bridge-service.sh start
 ./scripts/bridge-service.sh status
 ./scripts/bridge-service.sh stop
@@ -58,12 +58,12 @@ One hour without a new notification turns the screen off. Ordinary refreshes and
 | Information | Interval/source |
 | --- | --- |
 | Device state and duration | About 3 seconds |
-| Remote discovery | About 10 seconds; active tasks checked about every 3 seconds |
-| Quota and reset cards | About 60 seconds, one shared request |
-| Token activity | About 5 minutes; upstream reporting can lag |
+| Local/remote tasks | Live hooks; receiver health every 5 seconds |
+| Quota and reset cards | At startup and every 5 minutes, one shared request; task snapshots update quota between requests |
+| Token activity | Hourly; upstream reporting can lag |
 | Battery | About 30 seconds |
 
-Local tasks come from local Codex lifecycle records. Configured SSH aliases provide remote tasks and account data through an existing App Server. `account_host` in `config/bridge.json` selects the account source. Cloud tasks are not covered. SSH failure can stale remote/account data while the device itself remains connected.
+Local and SSH remote task events use independent hooks; see [setup](hooks.md). account_host independently selects account data. Cloud tasks are not covered. Disconnection never replays old events, and account errors do not affect task health.
 
 ## Troubleshoot
 
@@ -75,7 +75,7 @@ tail -n 30 reports/bridge.log
 - Stopped: run `start`; do not launch a second Rust instance alongside it.
 - No screen updates: wake the device and check the USB data cable or Bluetooth, then try `restart`. A fresh `CDX_ACK` means received, not read by the user.
 - BLE timeout: check power, proximity, Mac Bluetooth and the corresponding application's permission in System Settings → Privacy & Security → Bluetooth. Reboot alone does not require pairing again.
-- Remote unavailable: check `ssh devbox` in a terminal (substitute your configured alias). Fix authentication/network access; monitoring retries. Never put SSH private keys in the LaunchAgent.
+- Remote unavailable: check `ssh HOST_ALIAS` in a terminal (substitute your configured alias). Fix authentication/network access; monitoring retries. Never put SSH private keys in the LaunchAgent.
 - `--` values: investigate missing upstream data, SSH failure, stale data or identity verification; this does not mean zero quota. Reverify after account changes using the developer guide.
 - Workspace moved: quit Passport, rebuild the app and run `./scripts/bridge-service.sh install` from the new location; re-enable the login item if necessary.
 

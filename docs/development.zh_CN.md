@@ -14,18 +14,20 @@ Passport.app (Swift / AppKit)
                 └─ ESP32-C3 firmware
 ```
 
-常驻部分为原生菜单栏应用、Rust 和每个远端的一条 SSH 子进程；不另起本机 App Server，不在远端安装自定义采集器。Python 用于固件工具、测试和旧实现，不是当前常驻服务。
+任务采集由 Rust 管理本机及远端 Python 接收器；远端通过 SSH 连接。额度／token 使用独立的账号 RPC，不影响任务健康。详见 [Hooks](hooks.zh_CN.md)。
 
-远端使用现有 App Server 的只读轮询，不能假设新连接一定收到所有任务事件。本机桌面 App Server 没有当前实现可复用的控制 socket，因此保留文件／数据库兼容层。这些本地格式和远端 RPC 能力可能随 Codex 版本变化；升级后要重新验证。
+事件定义位于独立 `hooks.json`。不读取 Codex SQLite、不轮询任务状态、不扫描历史会话；仅对新 hook 指定的活动文件监听最终记录。该最终记录格式已用 Codex 0.153.4 实测，升级后需回归验证。
 
 ## 代码入口
+
+等待提醒来自 `PermissionRequest` 和输入工具的 `PreToolUse`，第一条在线事件即可通知。`PostToolUse` 关闭同步等待；异步问题保留到新用户输入或任务结束。类型 3 通过 `waiting-alert-v1` 协商；设备 OK 只关闭通知，不授权或回答。共享 C 默认只接受类型 1–2，Codex Pet 通过 `COMPANION_ALERT_KIND_MAX=3` 启用类型 3。
 
 | 路径 | 职责 |
 | --- | --- |
 | `rust-bridge/src/runtime.rs`、`codex.rs`、`control.rs` | 生命周期、采集模块、本地控制 |
-| `local.rs` | 本地任务生命周期与元数据 |
-| `remote.rs`、`rpc.rs` | SSH、App Server RPC、远端采集 |
-| `state.rs` | SQLite 检查点、去重、持久化投递 |
+| `hooks.rs`、`scripts/codex-hooks/hook.py` | 本地／SSH 实时 hook 与最终事件监听 |
+| `account.rs`、`rpc.rs` | 独立账号额度和用量 RPC |
+| `state.rs` | 在线事务、序号、计数 |
 | `display.rs` | 额度、token、重置卡与显示数据转换 |
 | `render.rs`、`text.c` | macOS CoreText 文字位图 |
 | `device.rs`、`ble.rs`、`ble_macos.m` | USB／BLE 连接与认证；业务发送在 `codex_wire.rs` |
@@ -51,6 +53,10 @@ cargo build --release --manifest-path rust-bridge/Cargo.toml
 更新 Rust 二进制后运行 `./scripts/bridge-service.sh restart`。首次从旧后台服务迁移时，先停止旧进程，再运行 `./scripts/bridge-service.sh install`。launchd 使用绝对路径，工作区移动后需重新安装；不在启动配置中复制 SSH agent socket 或密钥。
 
 ## 前台调试与诊断
+
+接收器连接、断线、活动文件丢失记录在 `reports/bridge.log`。重连退避上限 30 秒；仅重新连接接收器，不恢复任务。日志不输出提示词、参数或回答内容。
+
+每五秒接收器存活信号更新来源健康，即使长期空闲也保持健康。流中断、心跳到期或活动文件丢失显示异常；账号请求失败单独记录。
 
 先停止 launchd，避免设备锁冲突：
 
@@ -85,13 +91,15 @@ Rust 支持 `--local-only`、`--remote ALIAS`、`--thread ID`、`--transport usb
 
 配对密钥通过 USB 写入并保存于设备 NVS 与本地私密配置，断电后保留。正常重连不需要重复配对。
 
-启用账号来源、切换登录账号或订阅后，运行 `.venv/bin/python scripts/verify-account-source.py devbox`（按配置替换别名）。此一次性核验会临时启动本地 App Server，退出时关闭；常驻桥接不会这样做。核验失败应查明身份差异，不要绕过检查。
+启用账号来源、切换登录账号或订阅后，运行 `.venv/bin/python scripts/verify-account-source.py HOST_ALIAS`（按配置替换别名）。此一次性核验会临时启动本地 App Server，退出时关闭；常驻桥接不会这样做。核验失败应查明身份差异，不要绕过检查。
 
 ## 协议与数据语义
 
 `CDXP` 传输标题位图，`CDXL` 提交任务列表，`CDXM` 传输用量／日期／耗时／重置卡等元数据，状态包与对应 ACK 完成显示事务。重试必须使用不可变的同一事务与序号，不能把新标题和旧元数据混合发送。
 
-设备 ACK 代表收到了数据，用户确认由设备的提醒栈负责。设备仅在 RAM 中保存最多八条 LIFO 提醒，任意设备重启或去重缓存淘汰后不保证严格 exactly-once。源离线保留最后快照并冻结耗时，不能误判任务成功完成。
+设备 ACK 表示收到，用户确认由设备提醒栈负责。断线清空任务状态，不生成成功通知，不重放历史事件。已在设备上的未读通知仍由设备管理。
+
+设备连接后才接受新提醒；离线期间的事件直接丢弃，不进入持久化队列。断线和重新握手均丢弃待发事务。现有 SQLite 仅保留在线投递事务、序号和计数的内部实现，旧待发记录标记跳过，不在重连时恢复。
 
 额度为 `100 - usedPercent`；重置卡来自 `rateLimitResetCredits.availableCount`，与付费 credit balance 无关。七日 token 行按最新已报告日期倒序，缺失与零必须区分。当前轮次耗时包含工具执行和等待，不是整个会话总时长。
 
@@ -123,7 +131,7 @@ source scripts/env.sh
 
 设备 ESP32-C3 为 160 MHz、400 KB SRAM、8 MB Flash，无 PSRAM，屏幕 240×320。控制内存的重点是 LVGL 对象、文字位图、传输缓冲和任务快照。
 
-桥接保持增量读文件、有界队列、SQLite 小缓存；文字内容不变不重新栅格化或发送。设备仅可见值变化重绘，无持续动画。默认状态 3 秒、额度／重置卡 60 秒、token 300 秒；重置卡搭载额度请求，不新增轮询。
+桥接保持增量读文件、有界队列、SQLite 小缓存；文字内容不变不重新栅格化或发送。设备仅可见值变化重绘，无持续动画。默认状态 3 秒、额度／重置卡固定 5 分钟校准并接受实时任务额度快照、token 60 分钟；重置卡搭载额度请求，不新增轮询。服务启动时获取一次 token 用量，缓存最多保留 75 分钟，允许刷新延迟 15 分钟后再隐藏过期值。跨自然日的旧用量仍会隐藏。
 
 测量实际进程树，而非只测 Rust 主进程：
 

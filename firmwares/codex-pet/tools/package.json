@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "node bake.mjs",
+    "test": "node test_sequences.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "esbuild": "0.25.12"
+  }
+}

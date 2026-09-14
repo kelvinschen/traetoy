@@ -14,18 +14,20 @@ Passport.app (Swift / AppKit)
                 └─ ESP32-C3 firmware
 ```
 
-The menu app, Rust and one SSH child per configured remote remain resident. There is no additional local App Server or custom remote collector. Python supports firmware tools, tests and the legacy implementation.
+Rust owns local and remote Python hook receivers, with SSH carrying remote streams. Independent account RPC supplies quota/tokens without affecting task health. See [Hooks](hooks.md).
 
-Remote collection uses read-only polling; a newly attached connection is not assumed to receive every task event. The current local desktop App Server has no reusable control socket for this implementation, so local collection retains a lifecycle-file/database compatibility layer. These formats and remote RPC capabilities can change with Codex versions and require regression checks.
+Event definitions live in independent hooks.json files. The bridge does not read Codex SQLite, poll task state or scan historical sessions; it watches final records only in active files supplied by new hooks. Final-record compatibility is tested against Codex 0.153.4 and needs regression checks after upgrades.
 
 ## Code map
+
+Attention comes from PermissionRequest and input-tool PreToolUse hooks; the first live edge can notify. PostToolUse clears synchronous waiting; async questions remain until new user input or turn termination. waiting-alert-v1 gates kind 3. Device OK only dismisses a notification. The shared C parser defaults to kinds 1–2; Codex Pet enables kind 3 through COMPANION_ALERT_KIND_MAX=3.
 
 | Path | Responsibility |
 | --- | --- |
 | `rust-bridge/src/runtime.rs`, `codex.rs`, `control.rs` | Lifecycle, collection module, local control |
-| `local.rs` | Local lifecycle and metadata |
-| `remote.rs`, `rpc.rs` | SSH, App Server RPC and collection |
-| `state.rs` | SQLite checkpoints, deduplication, durable delivery |
+| `hooks.rs`, `scripts/codex-hooks/hook.py` | Local/SSH hooks and final-record watching |
+| `account.rs`, `rpc.rs` | Independent quota and account usage RPC |
+| `state.rs` | Online transactions, sequences, counters |
 | `display.rs` | Quota, token, reset-card and display conversion |
 | `render.rs`, `text.c` | CoreText bitmap rendering |
 | `device.rs`, `ble.rs`, `ble_macos.m` | Transport and authentication; Codex transactions live in `codex_wire.rs` |
@@ -51,6 +53,10 @@ cargo build --release --manifest-path rust-bridge/Cargo.toml
 After updating the binary, run `./scripts/bridge-service.sh restart`. Before migrating an old background process, stop it, then run `./scripts/bridge-service.sh install`. Reinstall after moving the workspace because launchd uses absolute paths. Do not copy SSH agent sockets or keys into its configuration.
 
 ## Foreground and device diagnostics
+
+Receiver connections, disconnections and active-file loss are logged in reports/bridge.log. Reconnect backoff is bounded at 30 seconds and reconnects only the receiver, without task restoration. Logs omit prompts, tool arguments and answers.
+
+Receiver pulses update health every five seconds, including during prolonged idle. Broken streams, expired heartbeats and lost active files mark the source unhealthy. Account request errors are logged independently.
 
 Stop launchd before taking the device lock:
 
@@ -85,13 +91,15 @@ Initial pairing requires USB and compatible installed firmware:
 
 Pairing keys are provisioned over USB and stored privately in device NVS and local configuration. They survive power loss; normal reconnection does not require pairing.
 
-Before enabling an account source or after changing account/subscription, run `.venv/bin/python scripts/verify-account-source.py devbox`, substituting the configured alias. This one-time check starts and closes a temporary local App Server; resident monitoring does not. Investigate identity mismatches rather than bypassing validation.
+Before enabling an account source or after changing account/subscription, run `.venv/bin/python scripts/verify-account-source.py HOST_ALIAS`, substituting the configured alias. This one-time check starts and closes a temporary local App Server; resident monitoring does not. Investigate identity mismatches rather than bypassing validation.
 
 ## Protocol semantics
 
 `CDXP` carries title bitmaps, `CDXL` commits the task list, and `CDXM` carries usage/dates/durations/reset-card metadata. State packets and ACKs complete display transactions. Retries must reuse the same immutable transaction and sequence, never combine new titles with old metadata.
 
-ACK means delivered; user acknowledgement belongs to the device. Its LIFO stack stores at most eight alerts in RAM. Strict exactly-once delivery is not guaranteed across arbitrary device resets or dedup-cache eviction. Offline sources retain their last snapshot and freeze elapsed time; disconnection must never become successful completion.
+Device ACK means received; user acknowledgement belongs to its alert stack. Disconnect clears task state without successful completion or historical replay. Existing device unread alerts remain device-managed.
+
+Only new notifications after device connection are accepted. Offline events are dropped before persistence. Disconnect and fresh identity handshakes discard pending transactions. Existing SQLite remains an internal implementation for online delivery transactions, sequence numbers and counters; old pending rows are skipped and never restored after reconnect.
 
 Quota is `100 - usedPercent`. Reset cards come from `rateLimitResetCredits.availableCount`, independently of paid credit balance. Seven daily rows end at the latest reported date and display newest first; missing and zero remain distinct. Duration covers the current response turn, including tools and waits, not the lifetime of the conversation.
 
@@ -123,7 +131,7 @@ The installer extracts the application from verified `firmwares/codex/build/Folo
 
 Hardware: ESP32-C3 at 160 MHz, 400 KB SRAM, 8 MB Flash, no PSRAM, 240×320 display. Watch LVGL objects, title bitmaps, transport buffers and task snapshots.
 
-Keep incremental file reads, bounded queues and small SQLite caches. Unchanged text skips rasterization/transmission; firmware redraws only visible changes without continuous animation. Defaults are 3-second device state, 60-second quota/reset cards and 300-second tokens; reset cards add no separate poll.
+Keep incremental file reads, bounded queues and small SQLite caches. Unchanged text skips rasterization/transmission; firmware redraws only visible changes without continuous animation. Defaults are 3-second device state, 5-minute quota/reset-card calibration plus live task quota snapshots and 60-minute tokens; reset cards add no separate poll. Token usage is fetched on service startup and cached for up to 75 minutes, allowing 15 minutes of refresh delay before hiding stale values. Usage from a previous calendar day remains hidden.
 
 Measure the entire process tree:
 

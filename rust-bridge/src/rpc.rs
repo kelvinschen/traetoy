@@ -12,6 +12,20 @@ use std::{
 };
 use tungstenite::{protocol::WebSocketConfig, Message, WebSocket};
 
+/// Preserve server error fields so callers can handle a specific resource state
+/// without hiding transport errors or unrelated invalid requests.
+#[derive(Debug)]
+pub(crate) struct RpcError {
+    pub method: String,
+    pub error: Value,
+}
+impl std::fmt::Display for RpcError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "RPC {}: {}", self.method, self.error)
+    }
+}
+impl std::error::Error for RpcError {}
+
 #[derive(Debug)]
 pub struct Pipe {
     child: Child,
@@ -74,7 +88,6 @@ impl Drop for Pipe {
 
 pub struct Rpc {
     socket: WebSocket<Pipe>,
-    pub offset: f64,
     pub calls: u64,
 }
 impl Rpc {
@@ -87,21 +100,60 @@ impl Rpc {
         {
             bail!("invalid SSH alias");
         }
-        let command="\"$SHELL\" -lic 'PATH=\"${CODEX_INSTALL_DIR:-$HOME/.local/bin}:$PATH\"; export PATH; printf \"PASSPORT_CLOCK %s\\n\" \"$(date +%s)\"; exec codex app-server proxy'";
-        let mut child = Command::new("ssh")
-            .args([
-                "-T",
-                "-o",
-                "BatchMode=yes",
-                "-o",
-                "ConnectTimeout=8",
-                "-o",
-                "ServerAliveInterval=15",
-                "-o",
-                "ServerAliveCountMax=3",
-                alias,
-                command,
-            ])
+        let remote_command="\"$SHELL\" -lic 'PATH=\"${CODEX_INSTALL_DIR:-$HOME/.local/bin}:$PATH\"; export PATH; printf \"PASSPORT_CLOCK %s\\n\" \"$(date +%s)\"; exec codex app-server proxy'";
+        let mut command = Command::new("ssh");
+        command.args([
+            "-T",
+            "-o",
+            "BatchMode=yes",
+            "-o",
+            "ConnectTimeout=8",
+            "-o",
+            "ServerAliveInterval=15",
+            "-o",
+            "ServerAliveCountMax=3",
+            alias,
+            remote_command,
+        ]);
+        Self::connect(command, true, stop)
+    }
+    pub fn local(stop: Arc<AtomicBool>) -> Result<Self> {
+        let home = std::path::PathBuf::from(std::env::var_os("HOME").unwrap_or_default());
+        let arch = if cfg!(target_arch = "aarch64") {
+            "arm64"
+        } else {
+            "x64"
+        };
+        let triple = if cfg!(target_arch = "aarch64") {
+            "aarch64"
+        } else {
+            "x86_64"
+        };
+        let native = home.join(format!(".npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-{arch}/vendor/{triple}-apple-darwin/bin/codex"));
+        let program = std::env::var_os("CODEX_BIN")
+            .map(std::path::PathBuf::from)
+            .or_else(|| native.is_file().then_some(native))
+            .unwrap_or_else(|| "codex".into());
+        let mut command = Command::new(program);
+        command.args(["app-server", "proxy", "--sock"]);
+        command.arg(Self::local_socket());
+        Self::connect(command, false, stop)
+    }
+    pub fn local_socket() -> std::path::PathBuf {
+        std::env::var_os("CODEX_APP_SERVER_SOCKET")
+            .map(std::path::PathBuf::from)
+            .unwrap_or_else(|| {
+                std::env::var_os("CODEX_HOME")
+                    .map(std::path::PathBuf::from)
+                    .unwrap_or_else(|| {
+                        std::path::PathBuf::from(std::env::var_os("HOME").unwrap_or_default())
+                            .join(".codex")
+                    })
+                    .join("app-server-control/app-server-control.sock")
+            })
+    }
+    fn connect(mut command: Command, clock_banner: bool, stop: Arc<AtomicBool>) -> Result<Self> {
+        let mut child = command
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
@@ -125,20 +177,23 @@ impl Rpc {
         }
         let mut banner = Vec::new();
         let mut byte = [0u8];
-        let offset = loop {
-            if pipe.read(&mut byte)? == 0 {
-                bail!("SSH proxy closed before banner");
-            }
-            banner.push(byte[0]);
-            if banner.len() > 65536 {
-                bail!("SSH banner too long");
-            }
-            if byte[0] == b'\n' {
-                let line = String::from_utf8_lossy(&banner);
-                if let Some((_, tail)) = line.rsplit_once("PASSPORT_CLOCK ") {
-                    break tail.trim().parse::<f64>()? - crate::now();
+        if clock_banner {
+            loop {
+                if pipe.read(&mut byte)? == 0 {
+                    bail!("SSH proxy closed before banner");
                 }
-                banner.clear();
+                banner.push(byte[0]);
+                if banner.len() > 65536 {
+                    bail!("SSH banner too long");
+                }
+                if byte[0] == b'\n' {
+                    let line = String::from_utf8_lossy(&banner);
+                    if let Some((_, tail)) = line.rsplit_once("PASSPORT_CLOCK ") {
+                        tail.trim().parse::<f64>()?;
+                        break;
+                    }
+                    banner.clear();
+                }
             }
         };
         let mut cfg = WebSocketConfig::default();
@@ -148,11 +203,7 @@ impl Rpc {
         let (socket, _) =
             tungstenite::client::client_with_config("ws://codex-app-server/rpc", pipe, Some(cfg))
                 .map_err(|e| anyhow::anyhow!("WebSocket handshake: {e}"))?;
-        let mut rpc = Self {
-            socket,
-            offset,
-            calls: 0,
-        };
+        let mut rpc = Self { socket, calls: 0 };
         rpc.call("initialize",json!({"clientInfo":{"name":"passport_rust","version":"0.3.0"},"capabilities":{"experimentalApi":true,"optOutNotificationMethods":serde_json::from_str::<Value>(include_str!("notification-opt-out.json"))?}}))?;
         rpc.socket.send(Message::Text(
             json!({"method":"initialized"}).to_string().into(),
@@ -162,11 +213,6 @@ impl Rpc {
     pub fn call(&mut self, method: &str, params: Value) -> Result<Value> {
         if ![
             "initialize",
-            "thread/list",
-            "thread/read",
-            "thread/loaded/list",
-            "thread/turns/list",
-            "project/list",
             "account/read",
             "account/rateLimits/read",
             "account/usage/read",
@@ -199,7 +245,11 @@ impl Rpc {
                 }
                 if v["id"].as_u64() == Some(id) {
                     if let Some(e) = v.get("error") {
-                        bail!("RPC {}: {}", method, e);
+                        return Err(RpcError {
+                            method: method.into(),
+                            error: e.clone(),
+                        }
+                        .into());
                     }
                     return Ok(v["result"].clone());
                 }

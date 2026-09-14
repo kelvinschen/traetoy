@@ -166,6 +166,7 @@ pub fn run() -> Result<()> {
             session.poll()?;
             if ctl.reconnect.swap(false, Ordering::Relaxed) {
                 device.close();
+                session.disconnected()?;
                 due = Instant::now();
             }
             if Instant::now() < due {
@@ -177,23 +178,30 @@ pub fn run() -> Result<()> {
                 continue;
             }
             match device.ready(codex::supports) {
-                Ok(true) => match sender.send(&mut device, session.next()?) {
-                    Ok(ack) => {
-                        log(&ack);
-                        session.delivered()?;
-                        error.clear();
+                Ok(true) => {
+                    // Identity handshake defines a new live window before selecting any alert.
+                    session.connected(device.generation, crate::now())?;
+                    match sender.send(&mut device, session.next()?) {
+                        Ok(ack) => {
+                            log(&ack);
+                            session.delivered()?;
+                            error.clear();
+                        }
+                        Err(e) => {
+                            error = e.to_string();
+                            device.recover();
+                            session.disconnected()?;
+                        }
                     }
-                    Err(e) => {
-                        error = e.to_string();
-                        device.recover();
-                    }
-                },
+                }
                 Ok(false) => {
+                    session.disconnected()?;
                     error.clear();
                 }
                 Err(e) => {
                     error = e.to_string();
                     device.recover();
+                    session.disconnected()?;
                 }
             }
             ctl.update(serde_json::json!({"v":1,"pid":std::process::id(),"service":"running","device":{"transport":device.transport(),"compatibility":device.compatibility,"firmware":device.firmware},"module":session.summary(),"error":error}));

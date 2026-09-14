@@ -34,9 +34,9 @@ pub struct Batch {
 }
 #[derive(Clone, Debug)]
 pub enum Update {
-    Batch(Batch),
-    Health(String, bool),
-    Quota(serde_json::Value),
+    Hook(String, Box<crate::hooks::Frame>, f64),
+    Quota(serde_json::Value, f64),
+    AccountVerified(bool, f64),
     Usage(serde_json::Value),
 }
 #[derive(Clone, Debug)]
@@ -53,6 +53,8 @@ pub struct State {
     next: i64,
     end: i64,
     last_cleanup: f64,
+    notification_since: Option<f64>,
+    waiting: BTreeMap<String, BTreeMap<String, Task>>,
 }
 impl State {
     pub fn open(path: &Path) -> Result<Self> {
@@ -72,6 +74,8 @@ impl State {
             next: 0,
             end: 0,
             last_cleanup: 0.,
+            notification_since: None,
+            waiting: BTreeMap::new(),
         })
     }
     pub fn register(&mut self, id: &str, now: f64) -> Result<SourceState> {
@@ -94,6 +98,103 @@ impl State {
         self.sources.insert(id.to_owned(), s.clone());
         Ok(s)
     }
+    /// Stream generations have no historical baseline or task restoration.
+    pub fn reset_live_source(&mut self, source: &str, at: f64, healthy: bool) -> Result<()> {
+        let s = self
+            .sources
+            .get_mut(source)
+            .context("unregistered hook source")?;
+        s.first = at;
+        s.checkpoint = at;
+        s.observed = at;
+        s.active.clear();
+        s.healthy = healthy;
+        self.waiting.remove(source);
+        self.db.execute(
+            "UPDATE alerts SET delivered=2 WHERE source=? AND delivered=0",
+            [source],
+        )?;
+        Ok(())
+    }
+    pub fn accepts_live(&self, at: f64) -> bool {
+        self.notification_since.is_some_and(|since| at > since)
+    }
+    pub fn end_notifications(&mut self) -> Result<()> {
+        self.notification_since = None;
+        self.waiting.clear();
+        self.db
+            .execute("UPDATE alerts SET delivered=2 WHERE delivered=0", [])?;
+        Ok(())
+    }
+    /// A hook is an edge, so its first arrival is not a polled baseline.
+    pub fn live_attention(&mut self, task: Task, active: bool, at: f64) -> Result<()> {
+        if !self.accepts_live(at) {
+            return Ok(());
+        }
+        let source = task.source.clone();
+        let mut next = self.waiting.entry(source.clone()).or_default().clone();
+        if active {
+            next.insert(task.thread.clone(), task);
+        } else {
+            next.remove(&task.thread);
+        }
+        self.waiting(source, next.into_values().collect(), at)
+    }
+    /// Start a live notification window; skipped deliveries are distinct from ACKs.
+    pub fn begin_notifications(&mut self, at: f64) -> Result<()> {
+        self.db
+            .execute("UPDATE alerts SET delivered=2 WHERE delivered=0", [])?;
+        self.notification_since = Some(at);
+        self.waiting.clear();
+        Ok(())
+    }
+    /// Edge-triggered attention notifications; the first snapshot after reconnect
+    /// is a baseline, never a replay of questions raised while disconnected.
+    pub fn waiting(&mut self, source: String, tasks: Vec<Task>, at: f64) -> Result<()> {
+        if !self.sources.contains_key(&source) {
+            anyhow::bail!("unregistered waiting source");
+        }
+        if self.notification_since.is_none_or(|since| at <= since) {
+            return Ok(());
+        }
+        let next: BTreeMap<_, _> = tasks.into_iter().map(|t| (t.thread.clone(), t)).collect();
+        let previous = self.waiting.remove(&source);
+        if let Some(previous) = previous {
+            for (thread, task) in &previous {
+                if next.get(thread).is_none_or(|t| t.turn != task.turn) {
+                    self.db.execute("UPDATE alerts SET delivered=2 WHERE source=? AND thread=? AND delivered=0 AND json_extract(payload,'$.status')='waiting'", params![source,thread])?;
+                }
+            }
+            for (thread, task) in &next {
+                if previous.get(thread).is_some_and(|t| t.turn == task.turn) {
+                    continue;
+                }
+                if self.notification_since.is_none_or(|since| at <= since) {
+                    continue;
+                }
+                let mut task = task.clone();
+                task.source = source.clone();
+                task.turn = format!("waiting:{}:{}", task.turn, self.seq()?);
+                let seconds = task.started.map(|n| (at - n).max(0.) as i64).unwrap_or(-1);
+                let event = Completion {
+                    task,
+                    status: "waiting".into(),
+                    ended: at,
+                    seconds,
+                };
+                self.db.execute("INSERT OR IGNORE INTO alerts(source,thread,turn,payload,ended) VALUES(?,?,?,?,?)", params![source,thread,event.task.turn,serde_json::to_string(&event)?,at])?;
+            }
+        }
+        self.waiting.insert(source, next);
+        Ok(())
+    }
+    pub fn is_pending(&self, seq: i64) -> Result<bool> {
+        Ok(self.db.query_row(
+            "SELECT EXISTS(SELECT 1 FROM alerts WHERE seq=? AND delivered=0)",
+            [seq],
+            |r| r.get(0),
+        )?)
+    }
     pub fn apply(&mut self, b: Batch) -> Result<()> {
         let previous = self
             .sources
@@ -102,7 +203,10 @@ impl State {
             .clone();
         let tx = self.db.transaction()?;
         for done in &b.completed {
-            if done.ended < previous.first || done.task.turn.is_empty() {
+            if done.ended < previous.first
+                || self.notification_since.is_some_and(|at| done.ended <= at)
+                || done.task.turn.is_empty()
+            {
                 continue;
             }
             tx.execute(
@@ -142,7 +246,7 @@ impl State {
         );
         if crate::now() - self.last_cleanup > 3600. {
             self.db.execute(
-                "DELETE FROM alerts WHERE delivered=1 AND ended<?",
+                "DELETE FROM alerts WHERE delivered!=0 AND ended<?",
                 [crate::now() - 30. * 86400.],
             )?;
             self.last_cleanup = crate::now();
@@ -252,6 +356,46 @@ mod tests {
         .unwrap();
     }
     #[test]
+    fn waiting_edges_are_deduplicated_resolved_and_not_replayed() {
+        let (path, mut s) = fixture();
+        s.register("local", 100.).unwrap();
+        s.begin_notifications(110.).unwrap();
+        s.waiting("local".into(), vec![], 109.).unwrap(); // Delayed pre-connection snapshot.
+        let t = completion("local", "turn", 115.).task;
+        s.waiting("local".into(), vec![t.clone()], 111.).unwrap();
+        assert!(
+            s.pending(None).unwrap().is_none(),
+            "existing waiting state is baseline"
+        );
+        s.waiting("local".into(), vec![], 112.).unwrap();
+        s.waiting("local".into(), vec![t.clone()], 113.).unwrap();
+        let (seq, event) = s.pending(None).unwrap().unwrap();
+        assert_eq!(event.status, "waiting");
+        s.waiting("local".into(), vec![t.clone()], 114.).unwrap();
+        assert_eq!(s.pending(None).unwrap().unwrap().0, seq);
+        s.waiting("local".into(), vec![], 115.).unwrap();
+        assert!(!s.is_pending(seq).unwrap());
+        assert!(
+            s.pending(None).unwrap().is_none(),
+            "resolved request must not be sent later"
+        );
+        s.waiting("local".into(), vec![t.clone()], 116.).unwrap();
+        let (again, _) = s.pending(None).unwrap().unwrap();
+        assert_ne!(
+            again, seq,
+            "a new waiting episode in the same turn can notify"
+        );
+        s.delivered(again).unwrap();
+        assert_eq!(s.done_count().unwrap(), 0);
+        apply(&mut s, "local", "turn", 117.);
+        assert_eq!(s.pending(None).unwrap().unwrap().1.status, "completed");
+        s.begin_notifications(118.).unwrap();
+        s.waiting("local".into(), vec![t], 119.).unwrap();
+        assert!(s.pending(None).unwrap().is_none());
+        drop(s);
+        let _ = std::fs::remove_file(path);
+    }
+    #[test]
     fn restart_preserves_delivery_sequence_and_deduplicates() {
         let (p, mut s) = fixture();
         s.register("local", 100.).unwrap();
@@ -266,6 +410,33 @@ mod tests {
         s.delivered(seq).unwrap();
         apply(&mut s, "local", "one", 110.);
         assert!(s.pending(None).unwrap().is_none());
+        drop(s);
+        std::fs::remove_file(p).unwrap();
+    }
+    #[test]
+    fn startup_skips_persisted_backlog_and_keeps_live_state() {
+        let (p, mut s) = fixture();
+        s.register("local", 100.).unwrap();
+        apply(&mut s, "local", "old", 110.);
+        s.pending(None).unwrap().unwrap(); // Sequence already allocated before shutdown.
+        drop(s);
+        let mut s = State::open(&p).unwrap();
+        s.register("local", 120.).unwrap();
+        s.begin_notifications(130.).unwrap();
+        assert!(s.pending(None).unwrap().is_none());
+        apply(&mut s, "local", "late", 125.);
+        assert!(s.pending(None).unwrap().is_none());
+        let active = completion("local", "running", 131.).task;
+        s.apply(Batch {
+            source: "local".into(),
+            active: vec![active.clone()],
+            completed: vec![completion("local", "new", 131.)],
+            checkpoint: 132.,
+        })
+        .unwrap();
+        assert_eq!(s.sources["local"].active, vec![active]);
+        assert_eq!(s.pending(None).unwrap().unwrap().1.task.turn, "new");
+        assert_eq!(s.done_count().unwrap(), 0); // Skipping is not a successful delivery.
         drop(s);
         std::fs::remove_file(p).unwrap();
     }

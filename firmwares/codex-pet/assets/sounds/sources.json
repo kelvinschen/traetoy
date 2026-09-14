@@ -1,0 +1,38 @@
+[
+  {
+    "name": "success",
+    "file": "success.wav",
+    "source": "https://tuna.voicemod.net/sound/d5314233-3fc2-427a-a343-7e05c4f2c66a",
+    "selected_preview": "L-puzzle-solved.mp3",
+    "selected_preview_sha256": "0782dee6f3d6aa5104c9e3a399de338b8fb902023757e84e461b83ec0dee58d8",
+    "sha256": "e320a58ecb0f47f5b2fa7ecb0fd569658f51fb2c4fac89d82eefb129cf105b88",
+    "samples": 35945,
+    "duration": 2.2465625,
+    "peak": 3000,
+    "edits": "16 kHz mono PCM, peak 3000, 5 ms endpoint fades; failure additionally +7 semitones at original speed, tail cut at 2.25 seconds"
+  },
+  {
+    "name": "failure",
+    "file": "failure.wav",
+    "source": "https://tuna.voicemod.net/sound/c1d91555-277c-4ec0-ab57-915e896c29bb",
+    "selected_preview": "V1-original-speed-short.wav",
+    "selected_preview_sha256": "bbc9f2040f6edc8c7c0d89a56d4b95b59cfd8134ae4452a56566690a1ff9d31a",
+    "sha256": "473f97a9d803169cc1bf2487aa397832d2f0ea16019eaa0a18a7d9f6fe6b6b6b",
+    "samples": 36000,
+    "duration": 2.25,
+    "peak": 3000,
+    "edits": "16 kHz mono PCM, peak 3000, 5 ms endpoint fades; failure additionally +7 semitones at original speed, tail cut at 2.25 seconds"
+  },
+  {
+    "name": "waiting",
+    "file": "waiting.wav",
+    "source": "https://tuna.voicemod.net/sound/e27a1424-6042-471b-a6ac-8d4f8727ebc2",
+    "selected_preview": "N-sensor-ping.mp3",
+    "selected_preview_sha256": "4781687ade60b6c30892df788a30ac2e72788fa5404be0ec8a4c52fc0b034497",
+    "sha256": "c59c27dd5a93e93ac7f5640b557038152d48bf2084fee9777880d5ff8772c9d6",
+    "samples": 12957,
+    "duration": 0.8098125,
+    "peak": 3000,
+    "edits": "16 kHz mono PCM, peak 3000, 5 ms endpoint fades; failure additionally +7 semitones at original speed, tail cut at 2.25 seconds"
+  }
+]

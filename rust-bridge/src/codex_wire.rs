@@ -8,6 +8,9 @@ use anyhow::Result;
 pub trait Channel {
     fn ready(&mut self) -> Result<bool>;
     fn generation(&self) -> u64;
+    fn waiting_alerts(&self) -> bool {
+        false
+    }
     fn exchange(&mut self, packet: &str, expected: &str, prefix: bool) -> Result<String>;
 }
 impl Channel for Device {
@@ -16,6 +19,11 @@ impl Channel for Device {
     }
     fn generation(&self) -> u64 {
         self.generation
+    }
+    fn waiting_alerts(&self) -> bool {
+        self.firmware
+            .as_ref()
+            .is_some_and(|f| f.capabilities.iter().any(|c| c == "waiting-alert-v1"))
     }
     fn exchange(&mut self, p: &str, e: &str, prefix: bool) -> Result<String> {
         Device::exchange(self, p, e, prefix)
@@ -87,13 +95,32 @@ impl Sender {
             self.info_sent = Some(t.info.clone());
         }
         device.exchange(&t.metadata, &format!("CDX_META_ACK {}", t.seq), false)?;
-        device.exchange(&t.packet, &format!("CDX_ACK {} ", t.seq), true)
+        let packet = compatible_packet(&t.packet, device.waiting_alerts());
+        device.exchange(&packet, &format!("CDX_ACK {} ", t.seq), true)
     }
+}
+
+fn compatible_packet(packet: &str, waiting: bool) -> String {
+    let mut fields: Vec<_> = packet.split('|').collect();
+    if !waiting && fields.get(8) == Some(&"3") {
+        fields[8] = "0";
+    }
+    fields.join("|")
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn waiting_alert_requires_advertised_capability() {
+        let p = "CDX1|7|50|300|50|10080|1|0|3|1|Waiting|--|--|END\n";
+        assert_eq!(compatible_packet(p, true), p);
+        assert_eq!(compatible_packet(p, false).split('|').nth(8), Some("0"));
+        assert_eq!(
+            compatible_packet(&p.replace("|3|1|", "|2|1|"), false),
+            p.replace("|3|1|", "|2|1|")
+        );
+    }
     struct Fake {
         compatible: bool,
         writes: usize,

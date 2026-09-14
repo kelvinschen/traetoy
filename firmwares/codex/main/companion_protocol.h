@@ -1,6 +1,9 @@
 #pragma once
 #include <stdbool.h>
 #include <stdint.h>
+#ifndef COMPANION_ALERT_KIND_MAX
+#define COMPANION_ALERT_KIND_MAX 2
+#endif
 typedef struct {
     uint32_t seq;
     int remaining[2], minutes[2], running, completed, alert, fresh;

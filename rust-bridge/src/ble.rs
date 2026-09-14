@@ -209,6 +209,17 @@ impl Drop for Ble {
         unsafe { passport_ble_disconnect() };
     }
 }
+#[cfg(test)]
+impl Ble {
+    pub(crate) fn test_session() -> Self {
+        Self {
+            rx: Aes256Gcm::new_from_slice(&[0; 32]).unwrap(),
+            tx: Aes256Gcm::new_from_slice(&[0; 32]).unwrap(),
+            counter: 0,
+            mtu: 23,
+        }
+    }
+}
 /// Live negative tests use an intentionally unsupported command, so the screen is untouched.
 pub fn self_test(pair: &Pairing) -> Result<()> {
     let mut ble = Ble::connect(pair, 8000)?;

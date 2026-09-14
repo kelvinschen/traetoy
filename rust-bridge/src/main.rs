@@ -1,3 +1,4 @@
+mod account;
 mod ble;
 mod codex;
 mod codex_wire;
@@ -5,9 +6,8 @@ mod control;
 mod device;
 mod display;
 mod firmware;
+mod hooks;
 mod info;
-mod local;
-mod remote;
 mod render;
 mod rpc;
 mod runtime;

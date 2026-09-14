@@ -1,0 +1,34 @@
+name: Usage question / 使用问题
+description: Ask for help building, configuring, or using Traetoy.
+title: "[Question] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues and documentation first. Report security vulnerabilities privately.
+        请先搜索已有 issue 和文档。安全漏洞请私密报告。
+  - type: textarea
+    id: question
+    attributes:
+      label: Question / 问题
+      description: Describe the goal and where you are blocked.
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware and firmware revision / 硬件与固件版本
+    validations:
+      required: true
+  - type: textarea
+    id: attempts
+    attributes:
+      label: Steps tried and observed result / 已尝试步骤和观察结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs / 已脱敏日志
+      description: Remove credentials, private paths, and personal data.
+      render: shell

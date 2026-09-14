@@ -3,7 +3,7 @@
 
 bool companion_alert_push(companion_alerts_t *s, uint32_t seq, int kind, int elapsed,
                           const char *title, const char *host, const uint8_t *pixels) {
-    if(!s || !seq || !title || !host || !pixels || (kind!=1 && kind!=2))return false;
+    if(!s || !seq || !title || !host || !pixels || kind<1 || kind>COMPANION_ALERT_KIND_MAX)return false;
     for(unsigned i=0;i<COMPANION_ALERT_SEEN;i++)if(s->seen[i]==seq)return false;
     for(unsigned i=0;i<s->count;i++)if(s->items[i].seq==seq)return false;
     s->seen[s->seen_next++ % COMPANION_ALERT_SEEN]=seq;

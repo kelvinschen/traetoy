@@ -1,0 +1,15 @@
+Traetoy is licensed under the MIT License. Copyright (c) 2026 Traetoy contributors.
+
+The following material remains subject to its own license, notice, or rights:
+
+- FoloToy AI Passport board-support source in shared/boards/ai-passport/ and
+  firmware baseline source in firmwares/codex/ derive from
+  https://github.com/FoloToy/ai-passport at upstream main commit
+  042a5d59da54cc717bdfd08cc99131bc50526341. Retain the MIT licenses included
+  in those directories.
+- Montserrat and Noto font materials remain under the SIL Open Font License
+  notices shipped beside them.
+- Bloub, miniz, and Lucide retain their upstream license files and attribution
+  in firmwares/codex-pet/THIRD_PARTY.md.
+- Codex brand artwork and selected Nintendo audio are identified as restricted
+  assets in ASSET_PROVENANCE.md. This NOTICE grants no rights to them.

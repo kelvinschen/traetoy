@@ -16,6 +16,7 @@ pub struct Account {
     pub reset_cards: Option<i32>,
     pub cards: crate::info::Cards,
     pub quota_at: f64,
+    pub calibrated_at: f64,
     pub usage_at: f64,
 }
 impl Default for Account {
@@ -26,6 +27,7 @@ impl Default for Account {
             reset_cards: None,
             cards: crate::info::Cards::default(),
             quota_at: 0.,
+            calibrated_at: 0.,
             usage_at: 0.,
         }
     }
@@ -100,7 +102,9 @@ fn compact128(n: Option<u128>) -> String {
             ] {
                 if n >= scale {
                     let value = n as f64 / scale as f64;
-                    let s = if value >= 100. {
+                    let s = if (999.5..1000.).contains(&value) {
+                        "999".into()
+                    } else if value >= 100. {
                         format!("{value:.0}")
                     } else {
                         format!("{value:.1}")
@@ -125,12 +129,13 @@ fn compact_daily(value: Option<u64>) -> String {
     let mut v = n as f64;
     let units = ["", "K", "M", "B", "T", "P", "E"];
     let mut unit = 0;
-    while v >= 999.5 && unit < units.len() - 1 {
+    // Never promote 999.xM to B before the raw count reaches one billion.
+    while v >= 1000. && unit < units.len() - 1 {
         v /= 1000.;
         unit += 1;
     }
     if unit == 0 || v >= 9.95 {
-        format!("{:.0}{}", v.round(), units[unit])
+        format!("{:.0}{}", v.round().min(999.), units[unit])
     } else {
         format!(
             "{}{}",
@@ -265,7 +270,7 @@ pub fn snapshot(
     let now = crate::now();
     let mut tasks = Vec::new();
     for s in state.sources.values() {
-        let stale = !s.healthy || now - s.observed > 30.;
+        let stale = !s.healthy || now - s.observed >= 30.;
         for t in &s.active {
             if filter.is_some_and(|f| f != t.thread) {
                 continue;
@@ -307,19 +312,31 @@ pub fn snapshot(
         (
             format!(
                 "{}{}",
-                if a.status == "failed" { "Failed: " } else { "" },
+                if a.status == "failed" {
+                    "Failed: "
+                } else if a.status == "waiting" {
+                    "Waiting: "
+                } else {
+                    ""
+                },
                 a.task.title
             ),
             a.task.project.clone(),
             a.seconds,
-            if a.status == "completed" { 1 } else { 2 },
+            if a.status == "completed" {
+                1
+            } else if a.status == "waiting" {
+                3
+            } else {
+                2
+            },
         )
     } else {
         (String::new(), String::new(), -1, 0)
     };
     let a = &account.windows[0];
     let b = &account.windows[1];
-    let fresh = account.quota_at > 0. && now - account.quota_at < 180.;
+    let fresh = account.quota_at > 0. && now - account.quota_at < crate::account::QUOTA_FRESH_FOR;
     let packet = format!(
         "CDX1|{seq}|{}|{}|{}|{}|{}|{}|{kind}|{}|{}|{}|{}|END\n",
         a.left,
@@ -338,7 +355,7 @@ pub fn snapshot(
         b.reset
     );
     let u = if account.usage_at > 0.
-        && now - account.usage_at < 900.
+        && now - account.usage_at < 4500.
         && account.usage.collected_date == Local::now().date_naive()
     {
         account.usage.clone()
@@ -408,7 +425,9 @@ mod tests {
             (999, "999"),
             (1000, "1K"),
             (10_500_000, "11M"),
-            (999_500_000, "1B"),
+            (999_500_000, "999M"),
+            (999_999_999, "999M"),
+            (1_000_000_000, "1B"),
             (u64::MAX, "18E"),
         ] {
             assert_eq!(compact_daily(Some(n)), label);

@@ -1,0 +1,46 @@
+name: Firmware builds
+
+on:
+  pull_request:
+    paths:
+      - firmwares/**
+      - shared/**
+      - scripts/firmware.py
+      - scripts/env.sh
+      - requirements.txt
+  push:
+    branches:
+      - main
+    paths:
+      - firmwares/**
+      - shared/**
+      - scripts/firmware.py
+      - scripts/env.sh
+      - requirements.txt
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ESP-IDF 5.5.3 - ${{ matrix.workspace }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: firmware-${{ github.ref }}-${{ matrix.workspace }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace:
+          - codex
+          - codex-pet
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Build and validate source firmware
+        uses: espressif/esp-idf-ci-action@9d38657f3d789ca759b2b37aaf5ceffbc42c4f0d # v1
+        with:
+          esp_idf_version: v5.5.3
+          target: esp32c3
+          command: python3 -m pip install --disable-pip-version-check -r requirements.txt && python3 scripts/firmware.py build ${{ matrix.workspace }}

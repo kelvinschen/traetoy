@@ -1,0 +1,48 @@
+name: Source checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: source-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  host:
+    name: Host tests and release audit
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Install Python dependencies
+        run: python3 -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Verify public-source inventory
+        run: |
+          git diff --check
+          python3 scripts/release_audit.py
+          python3 scripts/generate_sbom.py --check
+
+      - name: Run static checks
+        run: |
+          git diff --check
+          python3 -m py_compile scripts/generate_sbom.py scripts/release_audit.py
+          cargo fmt --manifest-path rust-bridge/Cargo.toml --check
+          cargo clippy --manifest-path rust-bridge/Cargo.toml --all-targets -- -D warnings
+
+      - name: Run Rust and Python tests
+        run: |
+          cargo test --manifest-path rust-bridge/Cargo.toml
+          python3 -m unittest discover -s tests -v
+
+      - name: Run Codex Pet asset tests
+        run: |
+          npm --prefix firmwares/codex-pet/tools ci --ignore-scripts
+          npm --prefix firmwares/codex-pet/tools test
